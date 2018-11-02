@@ -52,9 +52,9 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
  */
-define('DB_TYPE', 'mysql');
+define('DB_TYPE', 'sqlite');
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'mini');
+define('DB_NAME', $_SERVER['DOCUMENT_ROOT'] . '/postcard/db/postcard.db');
 define('DB_USER', 'root');
 define('DB_PASS', 'your_password');
 define('DB_CHARSET', 'utf8');
