@@ -1,4 +1,21 @@
+<h2 class="headertekst">Welcome to the Postcard Creator!</h2>
 <div class="container">
-    <h2>You are in the View: application/view/home/index.php (everything in the box comes from this file)</h2>
-    <p>In a real application this could be the homepage.</p>
+    
+    <p>Please select an option to create you own postcard:</p>
+    
+    <form action="home/source" method="post">
+        <div class="radio">
+            <label>
+            <input type="radio" name="imageinput" value="fileupload"> File Upload</label>
+        </div>
+        <div class="radio">
+            <label>
+            <input type="radio" name="imageinput" value="dragdrop"> Drag and Drop</label>
+        </div>
+        <div class="radio">
+            <label>
+            <input type="radio" name="imageinput" value="webcamera"> Web Camera</label>
+         </div>
+         <button type="submit" class="btn btn-success" name="submit">Submit</button>
+     </form>   
 </div>
