@@ -1,12 +1,13 @@
 <div class="container">
-	<p>Take a picture with your camera!</p>
+	<p>Click the "Open Camera" button and take a Snapshot!</p>
 	<div class="row">
 		<div class="col-md-6">
 			<div id="my_camera"></div>
             <br/>
             <video id="video" width="640" height="480" autoplay></video>
             <button id="showVideo"> Open Camera</button>
-            <button id="snap" style="display:none;">Snap Photo</button>    
+            <button id="snap" style="display:none;">Snap Photo</button> 
+            <div id="errorMsg"></div>    
 			<canvas id="canvas" width="640" height="480"></canvas>
         </div>
     </div>
@@ -26,7 +27,8 @@
 	     		e.target.style.display = "none";
 	     		snapbtn.style.display = "block";
 	     	} catch (e) {
-	     		console.log(e.name + ": " + e.message);
+	     		document.querySelector('#errorMsg').innerHTML = e.name + ": " + e.message;
+	     		//console.log(e.name + ": " + e.message);
 		    }
 		}
 
