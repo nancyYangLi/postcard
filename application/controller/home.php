@@ -22,11 +22,24 @@ class Home extends Controller
         require APP . 'view/_templates/footer.php';
     }
 
+    /**
+     * This method handles what happens when you choose an option to create a postcard
+     */
     public function source()
     {
         // load views
         require APP . 'view/_templates/header.php';
-        require APP . 'view/home/webcamera.php';
+        switch($_POST['imagesource']) {
+            case 1:
+                require APP . 'view/home/webcamera.php';
+                break;
+            case 2:
+                echo 'update an image';
+                break;
+            case 3:
+                echo 'drag and drop an image';
+                break;
+        }
         require APP . 'view/_templates/footer.php';
     }
     
