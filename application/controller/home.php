@@ -21,32 +21,10 @@ class Home extends Controller
         require APP . 'view/home/index.php';
         require APP . 'view/_templates/footer.php';
     }
-
-    /**
-     * This method handles what happens when you choose an option to create a postcard
-     */
-    public function source()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        switch($_POST['imagesource']) {
-            case 1:
-                require APP . 'view/home/webcamera.php';
-                break;
-            case 2:
-                echo 'update an image';
-                break;
-            case 3:
-                echo 'drag and drop an image';
-                break;
-        }
-        require APP . 'view/_templates/footer.php';
-    }
     
     /**
-     * PAGE: exampleone
-     * This method handles what happens when you move to http://yourproject/home/exampleone
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
+     * PAGE: webcamera
+     * This method handles what happens when you create a postcard
      */
     public function webcamera()
     {

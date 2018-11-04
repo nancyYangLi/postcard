@@ -9,6 +9,7 @@
     <!-- jQuery, loaded in the recommended protocol-less way -->
     <!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
     <!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
     <script>
