@@ -12,21 +12,56 @@
             </div>
         </div>
 	</div>
+	
+	<div style="display:none" id="processbox">
+    	<div class="box">
+        	<p>2. Modify the image to contain a message</p>
+        	<form>
+      			Message: <input id="textBox" placeholder="your message"/>
+      			<br/>
+      			Fill Or Stroke:
+     				<select id = "fillOrStroke">
+      					<option value = "fill">fill</option>
+      					<option value = "stroke">stroke</option>
+       					<option value = "both">both</option>
+    				</select>
+    		</form>
+        </div>
+        
+        
+        <div class="box">
+    		<p>3. Send it as an email to a specified recipient</p>
+    		
+    		<form action="<?php echo URL; ?>webcamera/updateImage" method="POST">
+    		<form action="/exampleTwo" method="post">
+			 	<div class="form-group">
+			 		<label><i class="fa fa-user" aria-hidden="true"></i> Name</label>
+			 		<input type="text" name="name" class="form-control" placeholder="Enter Name">
+			 	</div>
+			 	<div class="form-group">
+			 		<label><i class="fa fa-envelope" aria-hidden="true"></i> Email</label>
+			 		<input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+			 	</div>
+			 	<div class="form-group">
+			 		<label><i class="fa fa-comment" aria-hidden="true"></i> Message</label>
+			 		<textarea rows="3" name="message" class="form-control" placeholder="Type Your Message"></textarea>
+			 	</div>
+			 	<div class="form-group">
+			 		<button id="sendimg" class="btn btn-raised btn-block btn-danger">Send Your Postcard</button>
+			 	</div>
+			 	<textarea id="imageData" name="imageData" rows=10 cols=30 style="display:none"></textarea>
+			</form>
+			
+    		<div id="error_message" style="width:100%; height:100%; display:none;">
+				<h4>Error</h4>
+					Sorry there was an error sending your form.
+			</div>
+    	</div>
+    	
+    	
+	</div>
 
-    <div class="box" style="display:none" id="msgbox" >
-    	<p>2. Modify the image to contain a message</p>
-    	<form>
-  			Message: <input id="textBox" placeholder="your message"/>
-  			<br/>
-  			Fill Or Stroke:
- 				<select id = "fillOrStroke">
-  					<option value = "fill">fill</option>
-  					<option value = "stroke">stroke</option>
-   					<option value = "both">both</option>
-				</select>
-		</form>
-    </div>
-       
+      
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
  		var video = document.getElementById('video');
@@ -59,7 +94,7 @@
  		document.getElementById("snap").addEventListener("click", function() {
  	 		canvas.style.display = "block";
  			context.drawImage(video, 0, 0, 640, 480);
- 			msgbox.style.display = "block";
+ 			processbox.style.display = "block";
  		});
 
 
@@ -86,41 +121,50 @@
  	      context.fillRect(0, 480, canvas.width, 50);
      	      
  	      //Box
- 	      context.strokeStyle = "#000000";
- 	     // context.strokeRect(5,  5, canvas.width−10, canvas.height−10);
+ 	      context.strokeStyle = "#OOOOFF";
 
  	      //Text
  	      context.font = "30px serif";
 
  	      switch(fillOrStroke) {
  	         case "fill":
- 	            context.fillStyle = "#FF0000";
+ 	            context.fillStyle = "#8ED6FF";
                 context.fillText (message, xPosition,yPosition, maxWidth);
  	            break;
  	         case "stroke":
- 	            context.strokeStyle = "#FF0000";
+ 	            context.strokeStyle = "#OOOOFF";
  	            context.strokeText (message, xPosition,yPosition, maxWidth);
  	            break;
  	         case "both":
- 	            context.fillStyle = "#FF0000";
+ 	            context.fillStyle = "##8ED6FF";
                 context.fillText (message, xPosition ,yPosition, maxWidth);
- 	            context.strokeStyle = "#000000";
+ 	            context.strokeStyle = "#0000FF";
  	            context.strokeText (message, xPosition,yPosition, maxWidth);
  	            break;
   			}		
  	   }
 
-     	function textBoxChanged(e) {
+    	function textBoxChanged(e) {
  	      var target = e.target;
  	      message = target.value;
- 	      drawScreen();			
+ 	      drawScreen();		
+
+ 	      updateImageData();	
  	   }
 
  	   function fillOrStrokeChanged(e) {
  	      var target = e.target;
  	      fillOrStroke = target.value;
  	      drawScreen();
+
+ 	      upateImageData();
  	   }
 
+ 	   function updateImageData() {
+		  var imageData = document.getElementById('imageData');
+    	  imageData.value = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+		  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+   	   }
+ 	   
     </script>
 </div>
