@@ -8,7 +8,7 @@
                 <button id="showVideo"> Open Camera</button> 
                 <button id="snap" style="display:none;">Snap Photo</button> 
                 <div id="errorMsg"></div>
-                <canvas id="canvas" width="640" height="480"></canvas>
+                <canvas id="canvas" width="640" height="560" style="display:none;"></canvas>
             </div>
         </div>
 	</div>
@@ -17,6 +17,7 @@
     	<p>2. Modify the image to contain a message</p>
     	<form>
   			Message: <input id="textBox" placeholder="your message"/>
+  			<br/>
   			Fill Or Stroke:
  				<select id = "fillOrStroke">
   					<option value = "fill">fill</option>
@@ -25,7 +26,7 @@
 				</select>
 		</form>
     </div>
-    
+       
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
  		var video = document.getElementById('video');
@@ -35,7 +36,8 @@
  		function init(e) {
  	 		try {
  	 	 		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-	        		video.src = window.URL.createObjectURL(stream);
+	        		//video.src = window.URL.createObjectURL(stream);
+	        		video.srcObject = stream;
 	        		video.play();
 	     		})
 	     		e.target.style.display = "none";
@@ -51,20 +53,20 @@
  		var canvas = document.getElementById('canvas');
  		var context = canvas.getContext('2d');
  		var msgbox = document.getElementById('msgbox');
+ 		
 
  		// Trigger photo take
  		document.getElementById("snap").addEventListener("click", function() {
+ 	 		canvas.style.display = "block";
  			context.drawImage(video, 0, 0, 640, 480);
  			msgbox.style.display = "block";
  		});
 
 
 		// Modify the image to contain a message
-		
-		
-		var message = "your text";
+		var message = "your message...";
    		var fillOrStroke ="fill";
-
+   		
    		var formElement = document.getElementById("textBox");
    	    formElement.addEventListener("keyup", textBoxChanged, false);
 		
@@ -75,36 +77,35 @@
      	drawScreen();
 
      	function drawScreen() {
+   	      var xPosition = 50;
+ 	      var yPosition = canvas.height-50;
+ 	      var maxWidth = canvas.width-xPosition*2;
+ 	      
  	      //Background
- 	      context.fillStyle = "#ffffaa";
- 	      context.fillRect(0, 0, canvas.width, canvas.height);
+ 	      context.fillStyle = "#ffffff";
+ 	      context.fillRect(0, 480, canvas.width, 50);
      	      
  	      //Box
  	      context.strokeStyle = "#000000";
  	     // context.strokeRect(5,  5, canvas.width−10, canvas.height−10);
 
  	      //Text
- 	      context.font = "50px serif"
-
- 	      var metrics = context.measureText(message);
- 	      var textWidth = metrics.width;
- 	      var xPosition = (canvas.width/2) - (textWidth/2);
- 	      var yPosition = (canvas.height/2);
+ 	      context.font = "30px serif";
 
  	      switch(fillOrStroke) {
  	         case "fill":
  	            context.fillStyle = "#FF0000";
-                context.fillText (message, xPosition,yPosition);
+                context.fillText (message, xPosition,yPosition, maxWidth);
  	            break;
  	         case "stroke":
  	            context.strokeStyle = "#FF0000";
- 	            context.strokeText (message, xPosition,yPosition);
+ 	            context.strokeText (message, xPosition,yPosition, maxWidth);
  	            break;
  	         case "both":
  	            context.fillStyle = "#FF0000";
-                context.fillText (message, xPosition ,yPosition);
+                context.fillText (message, xPosition ,yPosition, maxWidth);
  	            context.strokeStyle = "#000000";
- 	            context.strokeText (message, xPosition,yPosition);
+ 	            context.strokeText (message, xPosition,yPosition, maxWidth);
  	            break;
   			}		
  	   }
@@ -112,7 +113,7 @@
      	function textBoxChanged(e) {
  	      var target = e.target;
  	      message = target.value;
- 	      drawScreen();
+ 	      drawScreen();			
  	   }
 
  	   function fillOrStrokeChanged(e) {
@@ -120,5 +121,6 @@
  	      fillOrStroke = target.value;
  	      drawScreen();
  	   }
+
     </script>
 </div>
