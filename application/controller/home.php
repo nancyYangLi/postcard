@@ -25,6 +25,7 @@ class Home extends Controller
     /**
      * This method handles what happens when you choose an option to create a postcard
      */
+/* old
     public function source()
     {
         // load views
@@ -41,6 +42,15 @@ class Home extends Controller
                 break;
         }
         require APP . 'view/_templates/footer.php';
+    }
+*/
+    public function source()
+    {
+        switch ($_POST['imagesource']) {
+        case 1: 
+            header('Location: /postcard/source/webcamera'); 
+            break;
+        }
     }
     
     /**
