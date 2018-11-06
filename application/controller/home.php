@@ -23,14 +23,35 @@ class Home extends Controller
     }
     
     /**
-     * PAGE: webcamera
-     * This method handles what happens when you create a postcard
+     * This method handles what happens when you choose an option to create a postcard
      */
-    public function webcamera()
+    public function source()
     {
         // load views
         require APP . 'view/_templates/header.php';
-        require APP . 'view/home/webcamera.php';
+        switch($_POST['imagesource']) {
+            case 1:
+                require APP . 'view/home/webcamera.php';
+                break;
+            case 2:
+                require APP . 'view/home/imageupload.php';
+                break;
+            case 3:
+                require APP . 'view/home/imagedragdrop.php';
+                break;
+        }
+        require APP . 'view/_templates/footer.php';
+    }
+    
+    /**
+     * PAGE: process
+     * This method handles what happens when you process an image
+     */
+    public function imageprocess()
+    {
+        // load views
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/home/imageprocess.php'; 
         require APP . 'view/_templates/footer.php';
     }
 }

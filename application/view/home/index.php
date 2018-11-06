@@ -3,14 +3,20 @@
 </header>
 
 <div class="container">
-	<p>To create a postcard, please follow these steps</p>
-	<ol>
-		<li>Take an image from your camera</li>
-		<li>Modify the image to contain a message</li>
-		<li>Send the postcard as an email to a specified recipient</li>
-	</ol>
-	
-	<form action="home/webcamera" method="post">
-		<button type="submit" class="btn btn-success" name="submit">TRY IT NOW!</button>
-	</form>
+	<p>Please choose one option to create your own postcard</p>
+	<form action="home/source" method="post">
+    	<div>
+            <label>
+            <input type="radio" name="imagesource" value="1" checked> Web Camera</label>
+        </div>
+        <div>
+            <label>
+            <input type="radio" name="imagesource" value="2"> Upload File</label>
+        </div>
+        <div>
+            <label>
+            <input type="radio" name="imagesource" value="3"> Drag and Drop Image</label>
+        </div>
+        <button type="submit" class="btn btn-success" name="submit">Submit</button>
+    </form>  
 </div>
