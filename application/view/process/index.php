@@ -14,6 +14,10 @@
         </form>
 	</div>
 	
+	<div>
+		<br/>
+		<button id="sendEmail">Send Email</button> 
+	</div>
 </div>
 
 <script language="JavaScript">
@@ -77,6 +81,13 @@
         fillOrStroke = target.value;
         loadCanvas(dataURL);
     }
+
+ 	// Upload image to server and go to email send page
+	document.getElementById("sendEmail").addEventListener("click", function() {
+		// need to be changed later
+		window.location="https://localhost/postcard/email";
+         	
+    });
 </script>
 
 
