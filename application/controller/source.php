@@ -11,8 +11,8 @@
 class Source extends Controller
 {
     /**
-     * PAGE: index
-     * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
+     * PAGE: webcamera
+     * This method handles what happens when you choose to take an image from webcamera
      */
     public function webcamera()
     {
@@ -21,6 +21,33 @@ class Source extends Controller
         require APP . 'view/source/webcamera.php';
         require APP . 'view/_templates/footer.php';
     }
+    
+    
+    /**
+     * PAGE: fileupload
+     * This method handles what happens when you choose to upload an image
+     */
+    public function fileupload()
+    {
+        // load views
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/source/imageupload.php';
+        require APP . 'view/_templates/footer.php';
+    }
+    
+    
+    /**
+     * PAGE: imagedrapdrop
+     * This method handles what happens when you choose to drag and drop an image
+     */
+    public function imagedragdrop()
+    {
+        // load views
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/source/imagedragdrop.php';
+        require APP . 'view/_templates/footer.php';
+    }
+    
     
     /**
      * Ajax action: upload

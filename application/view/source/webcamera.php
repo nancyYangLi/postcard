@@ -11,15 +11,7 @@
             </div>
         </div>
 	</div>
-
-	<div>
-		<br/>
-    	<ul class="pagination">
-        	<li class="page-item"><a class="page-link" href="<?php echo URL?>">Previous</a></li>
-        	<li class="page-item"><a class="page-link" href="<?php echo URL;?>home/imageprocess">Next</a></li>
-  		</ul>
-  	</div>	
-	   
+   
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
  		// Get access to the camera
@@ -45,7 +37,7 @@
 
  		// Trigger photo take
  		document.getElementById("snap").addEventListener("click", function() {
- 			context.drawImage(video, 0, 0, 640, 480);
+ 			context.drawImage(video, 0, 0, canvas.width, canvas.height);
  		});
 
         document.getElementById("upload").addEventListener("click", function() {
