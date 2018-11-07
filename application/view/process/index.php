@@ -23,19 +23,19 @@
 
 
 	
-	var dataURL = "images/doudou.jpg";
-	//loadCanvas(dataURL);
+	var dataURL = "https://www.gstatic.com/webp/gallery/1.jpg";
+	loadCanvas(dataURL);
     function loadCanvas(dataURL) {
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
     
         // load image from data url
-        var imageObj = new Image();
-        imageObj.onload = function() {
-          context.drawImage(this, 0, 0);
+        var img = new Image();
+        img.onload = function() {
+          context.drawImage(img, 0, 0);
         };
     
-        imageObj.src = dataURL;
+        img.src = dataURL;
       }
 
 </script>
