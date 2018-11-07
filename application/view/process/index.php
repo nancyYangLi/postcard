@@ -1,6 +1,45 @@
 <div class="container">
-    <h2>It is the image process page, enable the user to add a message to the image</h2>
+	<div>
+		<p>Add a message to the image</p>
+		<canvas id="canvas" width="500" height="500"></canvas>
+		<form>
+            Message: <input id="textBox" placeholder="your message"/>
+            <br/>
+            Fill Or Stroke:
+            <select id = "fillOrStroke">
+            <option value = "fill">fill</option>
+            <option value = "stroke">stroke</option>
+            <option value = "both">both</option>
+            </select>
+        </form>
+	</div>
+	
 </div>
+
+<script language="JavaScript">
+
+
+	<!-- unfinished-->
+
+
+	
+	var dataURL = "images/doudou.jpg";
+	//loadCanvas(dataURL);
+    function loadCanvas(dataURL) {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+    
+        // load image from data url
+        var imageObj = new Image();
+        imageObj.onload = function() {
+          context.drawImage(this, 0, 0);
+        };
+    
+        imageObj.src = dataURL;
+      }
+
+</script>
+
 
 
 
