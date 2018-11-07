@@ -1,9 +1,9 @@
 <div class="container">
 	<div>
 		<p>Add a message to the image</p>
-		<canvas id="canvas" width="500" height="500"></canvas>
+		<canvas id="canvas" width="500" height="400"></canvas>
 		<form>
-            Message: <input id="textBox" placeholder="your message"/>
+            Message: <input id="msgBox" placeholder="your message"/>
             <br/>
             Fill Or Stroke:
             <select id = "fillOrStroke">
@@ -17,27 +17,66 @@
 </div>
 
 <script language="JavaScript">
-
-
-	<!-- unfinished-->
-
-
-	
 	var dataURL = "https://www.gstatic.com/webp/gallery/1.jpg";
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var message = "your message...";
+    var fillOrStroke ="fill";
+
+	// Load user's specific image to canvas
 	loadCanvas(dataURL);
     function loadCanvas(dataURL) {
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-    
-        // load image from data url
         var img = new Image();
         img.onload = function() {
           context.drawImage(img, 0, 0);
+          drawScreen();
         };
-    
         img.src = dataURL;
-      }
+    }
 
+	// Add message to canvas
+    function drawScreen() {
+    	var xPosition = 50;
+        var yPosition = canvas.height-100;
+        var maxWidth = canvas.width-xPosition*2;
+        
+        context.font = "30px serif";
+        
+        switch(fillOrStroke) {
+            case "fill":
+            	context.fillStyle = "#005ce6";
+                context.fillText (message, xPosition,yPosition, maxWidth);
+                break;
+            case "stroke":
+            	context.strokeStyle = "#e65c00";
+                context.strokeText (message, xPosition,yPosition, maxWidth);
+                break;
+            case "both":
+            	context.fillStyle = "#005ce6";
+                context.fillText (message, xPosition ,yPosition, maxWidth);
+                context.strokeStyle = "#e65c00";
+                context.strokeText (message, xPosition,yPosition, maxWidth);
+                break;
+        }
+    }
+
+    var formElement = document.getElementById("msgBox");
+    formElement.addEventListener("keyup", textBoxChanged, false);
+    
+    formElement = document.getElementById("fillOrStroke");
+    formElement.addEventListener("change", fillOrStrokeChanged, false);
+        
+    function textBoxChanged(e) {
+        var target = e.target;
+        message = target.value;
+        loadCanvas(dataURL);
+    }
+    
+    function fillOrStrokeChanged(e) {
+        var target = e.target;
+        fillOrStroke = target.value;
+        loadCanvas(dataURL);
+    }
 </script>
 
 
