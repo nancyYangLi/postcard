@@ -51,8 +51,7 @@
                     if (response) 
                         window.location="https://localhost/postcard/process";
                     else {
-                        /* todo: add pop-up dialog to show error */
-                        console.log('Failed to upload image' + response);
+                        window.alert('Failed to upload image to edit');
                     }
                 }
             });

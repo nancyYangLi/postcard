@@ -20,4 +20,18 @@ class Process extends Controller
         require APP . 'view/process/index.php'; 
         require APP . 'view/_templates/footer.php';
     }
+
+    public function loadImage()
+    { 
+        // todo: error handling
+        if (isset($_POST['image'])) {
+            $path = APP . '/images/' . $_POST['image'];
+            $file = file_get_contents($path);
+            if ($file) {
+                echo base64_encode($file);
+                return;
+            }
+        }
+        http_response_code(404); 
+    } 
 }

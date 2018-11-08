@@ -13,7 +13,6 @@
             </select>
         </form>
 	</div>
-	
 	<div>
 		<br/>
 		<button id="sendEmail">Send Email</button> 
@@ -21,35 +20,36 @@
 </div>
 
 <script language="JavaScript">
+	var dataURL = "https://localhost/postcard/images/unitTest.jpg";
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var message = "your message...";
     var fillOrStroke ="fill";
-    var request = new XMLHttpRequest();
-	
-    
-    request.open('POST', 'https://localhost/postcard/process/loadImage', true);
-    // Inform the server that the parameters are encoded in URL
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.onreadystatechange = function() {
-        // Makes sure the document is ready to parse.
-        if (request.readyState == 4) {
-            // Makes sure it's found the file.
-            if (request.status == 200) {
-                loadCanvas('data:image/png;base64,' + request.responseText);
-            }
-        }
-    };
-    request.send(encodeURI('image=current-snap.png'));
-    
-    // Load user's specific image to canvas
-    function loadCanvas(dataURL) {
+
+    loadCanvas();
+
+	// Load user's specific image to canvas
+    function loadCanvas() {
         var img = new Image();
         img.onload = function() {
-          context.drawImage(img, 0, 0);
-          drawScreen();
-        };
-        img.src = dataURL;
+            $.ajax({
+                url: '/postcard/process/loadImage',
+                type: 'GET',
+                data: { image: 'unitTest.png' },
+                success: function( res ) {
+                    var response = JSON.parse(res);
+                    if (response.success) {
+                        img.src = 'data:image/png;base64,' + response.image;
+                        context.drawImage(img, 0, 0);
+                        drawScreen();
+                    }
+                    else {
+                        /* todo: add pop-up dialog to show error */
+                        console.log(response.errMsg);
+                    }
+                }   
+            });
+        }
     }
 
 	// Add message to canvas
@@ -96,7 +96,7 @@
         loadCanvas(dataURL);
     }
 
-    // Upload image to server and go to email send page
+ 	// Upload image to server and go to email send page
 	document.getElementById("sendEmail").addEventListener("click", function() {
 		// need to be changed later
  		var canvas = document.getElementById('canvas');
@@ -107,20 +107,11 @@
             type: 'POST',
             data: { imgBase64: imageURL },
             success: function( response ) {
-                if (response) {
-                    var res = JSON.parse(response);
-                    var msg;
-                    if (res.success) {
-                        msg = "Post card has been sent to your mailbox"
-                    }
-                    else {
-                        msg = res.msg;
-                    }
-                    window.alert(msg);
-                }
+                if (response) 
+                    window.location="https://localhost/postcard/process";
                 else {
                     /* todo: add pop-up dialog to show error */
-                    console.log('Failed to upload image');
+                    console.log('Failed to upload image' + response);
                 }
             }   
         });        	

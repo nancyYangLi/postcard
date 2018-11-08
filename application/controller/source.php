@@ -63,7 +63,7 @@ class Source extends Controller
         $data = base64_decode($img);
 
         $file = UPLOAD_DIR . 'current-snap.png';
-        $success = file_put_contents($file, $data);
-        print $success ? TRUE : FALSE;
+        $success = @file_put_contents($file, $data);
+        echo $success ? TRUE : FALSE;
     }
 }
