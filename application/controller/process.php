@@ -45,14 +45,14 @@ class Process extends Controller
         $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "smtp.gmail.com";
+        $mail->Host = "smtp.mail.yahoo.com";
         $mail->Port = 465;
         $mail->IsHTML(true);
-        $mail->Username = "nancy.liyang@gmail.com";
-        $mail->Password = "88288710Ly";
-        $mail->SetFrom("nancy.liyang@gmail.com");
-        $mail->Subject = "Test";
-        $mail->Body = "hello";
+        $mail->Username = "test.yangli@yahoo.com";
+        $mail->Password = "testingbox";
+        $mail->SetFrom("test.yangli@yahoo.com");
+        $mail->Subject = "Postcard";
+        $mail->Body = "attached";
         
         define('UPLOAD_DIR', APP . 'images/');
         $img = $_POST['imgBase64'];
@@ -64,7 +64,7 @@ class Process extends Controller
         $success = file_put_contents($file, $data);
         
         try {
-            $mail->AddAddress("nancy.liyang@gmail.com");
+            $mail->AddAddress("nancy.liyang@gmail.com");//""test.yangli@yahoo.com");
             $mail->AddAttachment($file, 'postcard.png');
             
             if ($mail->Send()) {
