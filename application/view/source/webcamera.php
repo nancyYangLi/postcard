@@ -3,11 +3,11 @@
     	<p>Click the button blow and take a snapshot!</p>
     	<div class="row">
     		<div class="col-md-6">
-                <video id="video" width="640" height="480" autoplay></video>
+                <video id="video" width="672" height="480" autoplay></video>
                 <button id="snap">Snapshot</button> 
                 <div id="errorMsg"></div>
-                <canvas id="canvas" width="640" height="480"></canvas>
-                <button id="upload">Use Photo</button> 
+                <canvas id="canvas" width="672" height="480"></canvas>
+                <button id="upload" style="display:none;">Use Photo</button> 
             </div>
         </div>
 	</div>
@@ -34,10 +34,12 @@
 		// Elements for taking the snapshot
  		var canvas = document.getElementById('canvas');
  		var context = canvas.getContext('2d');
+ 		var uploadbtn = document.getElementById("upload");
 
  		// Trigger photo take
  		document.getElementById("snap").addEventListener("click", function() {
  			context.drawImage(video, 0, 0, canvas.width, canvas.height);
+ 			uploadbtn.style.display = "block";
  		});
 
         document.getElementById("upload").addEventListener("click", function() {

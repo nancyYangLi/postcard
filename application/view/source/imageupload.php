@@ -1,12 +1,11 @@
 <div class="container">
 	<div>
 		<p>Choose an image file to upload</p>
-		
 		<div class="row">
     		<div class="col-md-6">
                 <input type="file" id="fileinput" accept="image/*">
-                <canvas id="canvas" width="500" height="500"></canvas>
-                <button id="upload">Use Photo</button> 
+                <canvas id="canvas" width="672" height="480"></canvas>
+                <button id="upload" style="display:none;">Use Photo</button> 
             </div>
         </div>
 	</div>
@@ -18,6 +17,7 @@
 	var uploadfiles = document.querySelector('#fileinput');
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
+	var uploadbtn = document.getElementById("upload");
 	
 	uploadfiles.addEventListener('change', handleImage, false);
 
@@ -30,7 +30,8 @@
 	        }
 	        img.src = event.target.result;
 	    }
-	    reader.readAsDataURL(e.target.files[0]);     
+	    reader.readAsDataURL(e.target.files[0]);  
+	    uploadbtn.style.display = "block";
 	}
 
 	// Upload the image to server
@@ -45,8 +46,7 @@
                 if (response) 
                     window.location="https://localhost/postcard/process";
                 else {
-                    /* todo: add pop-up dialog to show error */
-                    console.log('Failed to upload image' + response);
+                	window.alert('Failed to upload image to edit');
                 }
             }
         }); 	

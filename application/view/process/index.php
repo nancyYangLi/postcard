@@ -1,7 +1,7 @@
 <div class="container">
 	<div>
 		<p>Add a message to the image</p>
-		<canvas id="canvas" width="500" height="400"></canvas>
+		<canvas id="canvas" width="672" height="480"></canvas>
 		<form>
             Message: <input id="msgBox" placeholder="your message"/>
             <br/>
@@ -15,7 +15,7 @@
 	</div>
 	
 	<div class="box">
-		<form action="process/sendemail" method="post">
+		<form action="" method="post">
     		<div class="form-group">
             	<label><i class="fa fa-user" aria-hidden="true"></i> Name</label>
             	<input type="text" name="name" class="form-control" placeholder="Enter Name">
@@ -30,25 +30,18 @@
             	<label><i class="fa fa-comment" aria-hidden="true"></i> Message</label>
             	<textarea rows="3" name="message" class="form-control" placeholder="Type Your Message"></textarea>
             </div>
-            
-            <!-- 
+      
             <div class="form-group">
-            	<button id="sendEmail" class="btn btn-raised btn-block btn-danger">Send Your Postcard</button>
+            	<button id="sendEmail" type="submit" class="btn btn-success btn-send">Send Your Postcard</button>
             </div>
-            -->
 		</form>
-		
-		<button id="sendEmail" class="btn btn-raised btn-block btn-danger">Send Your Postcard</button>
-
-    	<div id="error_message" style="width:100%; height:100%; display:none;">
-    		<h4>Error</h4>
-    		Sorry there was an error sending your form.
-    	</div>
 	</div>
 	
 </div>
 
 <script language="JavaScript">
+
+
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var message = "your message...";
@@ -85,7 +78,7 @@
 	// Add message to canvas
     function drawScreen() {
     	var xPosition = 50;
-        var yPosition = canvas.height-100;
+        var yPosition = canvas.height-50;
         var maxWidth = canvas.width-xPosition*2;
         
         context.font = "30px serif";
@@ -127,17 +120,17 @@
     }
 
     // Upload image to server and go to email send page
-	document.getElementById("sendEmail").addEventListener("click", function() {
-		// need to be changed later
+	document.getElementById("sendEmail").addEventListener("click", function(e) {
  		var canvas = document.getElementById('canvas');
         var imageURL = canvas.toDataURL(); /* base64 */
-            
+
         $.ajax({
             url: '/postcard/process/sendemail',
             type: 'POST',
-            data: { imgBase64: imageURL },
+            data: { imgBase64: imageURL, message: 'test teate test' },
+            async: false,
             success: function( response ) {
-                if (response) {
+            	if (response) {
                     var res = JSON.parse(response);
                     var msg;
                     if (res.success) {
@@ -149,11 +142,10 @@
                     window.alert(msg);
                 }
                 else {
-                    /* todo: add pop-up dialog to show error */
-                    console.log('Failed to upload image');
-                }
-            }   
-        });        	
+                    window.alert('Failed to upload image');
+                }  
+            }
+        });     	
     });
 </script>
 

@@ -52,7 +52,8 @@ class Process extends Controller
         $mail->Password = "testingbox";
         $mail->SetFrom("test.yangli@yahoo.com");
         $mail->Subject = "Postcard";
-        $mail->Body = "attached";
+        //$mail->Body = "attached";
+        $mail->Body = $_POST['message'];
         
         define('UPLOAD_DIR', APP . 'images/');
         $img = $_POST['imgBase64'];
@@ -68,7 +69,7 @@ class Process extends Controller
             $mail->AddAttachment($file, 'postcard.png');
             
             if ($mail->Send()) {
-                echo json_encode(array('success' => 1, 'msg' => ''));
+                echo json_encode(array('success' => 1, 'msg' => 'Post card has been sent to your mailbox'));
             }
             else {
                 echo json_encode(array('success' => 0,

@@ -3,8 +3,8 @@
 		<p>Drag and drop an image file</p>
     	<div class="row">
     		<div class="col-md-6">
-                <canvas id="canvas" width="500" height="500"></canvas>
-                <button id="upload">Use Photo</button> 
+                <canvas id="canvas" width="672" height="480"></canvas>
+                <button id="upload" style="display:none;">Use Photo</button> 
             </div>
         </div>
 	</div>
@@ -15,6 +15,7 @@
 	// Drag and drop images to canvas
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
+	var uploadbtn = document.getElementById("upload");
 	
 	window.ondragover = function(e) {e.preventDefault()}
 	window.ondrop = function(e) {e.preventDefault(); handleImage(e.dataTransfer.files[0]); }
@@ -24,6 +25,7 @@
 	    // call context.drawImage when the image got loaded
 	    img.onload = function() {
 			context.drawImage(img, 0, 0, canvas.width, canvas.height);
+			uploadbtn.style.display = "block";
 		}
 	 	// URL @ Mozilla, webkitURL @ Chrome
 	   	img.src = URL.createObjectURL(file);
@@ -41,8 +43,7 @@
                 if (response) 
                     window.location="https://localhost/postcard/process";
                 else {
-                    /* todo: add pop-up dialog to show error */
-                    console.log('Failed to upload image' + response);
+                	window.alert('Failed to upload image to edit');
                 }
             }
         }); 	
