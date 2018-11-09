@@ -14,10 +14,38 @@
         </form>
 	</div>
 	
-	<div>
-		<br/>
-		<button id="sendEmail">Send Email</button> 
+	<div class="box">
+		<form action="process/sendemail" method="post">
+    		<div class="form-group">
+            	<label><i class="fa fa-user" aria-hidden="true"></i> Name</label>
+            	<input type="text" name="name" class="form-control" placeholder="Enter Name">
+            </div>
+            
+            <div class="form-group">
+            	<label><i class="fa fa-envelope" aria-hidden="true"></i> Email</label>
+            	<input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+            </div>
+            
+            <div class="form-group">
+            	<label><i class="fa fa-comment" aria-hidden="true"></i> Message</label>
+            	<textarea rows="3" name="message" class="form-control" placeholder="Type Your Message"></textarea>
+            </div>
+            
+            <!-- 
+            <div class="form-group">
+            	<button id="sendEmail" class="btn btn-raised btn-block btn-danger">Send Your Postcard</button>
+            </div>
+            -->
+		</form>
+		
+		<button id="sendEmail" class="btn btn-raised btn-block btn-danger">Send Your Postcard</button>
+
+    	<div id="error_message" style="width:100%; height:100%; display:none;">
+    		<h4>Error</h4>
+    		Sorry there was an error sending your form.
+    	</div>
 	</div>
+	
 </div>
 
 <script language="JavaScript">
@@ -26,6 +54,7 @@
     var message = "your message...";
     var fillOrStroke ="fill";
     var request = new XMLHttpRequest();
+    var dataURL;
 	
     
     request.open('POST', 'https://localhost/postcard/process/loadImage', true);
@@ -36,14 +65,15 @@
         if (request.readyState == 4) {
             // Makes sure it's found the file.
             if (request.status == 200) {
-                loadCanvas('data:image/png;base64,' + request.responseText);
+                dataURL = 'data:image/png;base64,' + request.responseText;
+                loadCanvas();
             }
         }
     };
     request.send(encodeURI('image=current-snap.png'));
     
     // Load user's specific image to canvas
-    function loadCanvas(dataURL) {
+    function loadCanvas() {
         var img = new Image();
         img.onload = function() {
           context.drawImage(img, 0, 0);
@@ -87,13 +117,13 @@
     function textBoxChanged(e) {
         var target = e.target;
         message = target.value;
-        loadCanvas(dataURL);
+        loadCanvas();
     }
     
     function fillOrStrokeChanged(e) {
         var target = e.target;
         fillOrStroke = target.value;
-        loadCanvas(dataURL);
+        loadCanvas();
     }
 
     // Upload image to server and go to email send page
@@ -103,7 +133,7 @@
         var imageURL = canvas.toDataURL(); /* base64 */
             
         $.ajax({
-            url: '/postcard/email/sendemail',
+            url: '/postcard/process/sendemail',
             type: 'POST',
             data: { imgBase64: imageURL },
             success: function( response ) {
