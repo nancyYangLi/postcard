@@ -9,20 +9,45 @@
  *
  */
 class Postcards extends Controller
-{
+{ 
+    function __construct()
+    {
+        parent::__construct();
+        $this->postcards = $this->loadModel("postcards");
+    }
+
     /**
      * PAGE: index
-     * This method handles what happens when you move to http://yourproject/songs/index
+     * This method is the default page to show all postcards 
      */
     public function index()
     {
- //       $postcards = $this->model->getAllPostcards();
- //       $amount_of_postcards = $this->model->getAmountOfPostcards();
+        $postcards = $this->postcards->getAllPostcards();
+        
+        $names = "";
+        for ($i=0; $i < count($postcards); $i++) {
+            if ($i == 0)
+                $names = $postcards[$i]["name"];
+            else
+                $names = $names . ',' . $postcards[$i]["name"];
+        }
 
-       // load views. within the views we can echo out $songs and $amount_of_songs easily
+       // load views. Put names in a hidden field for js to load images
         require APP . 'view/_templates/header.php';
+        echo "<input type=\"hidden\" id=\"card_names\" value=\"" . $names . "\"/>";
         require APP . 'view/postcards/index.php';
         require APP . 'view/_templates/footer.php';
+    }
+
+    /**
+    * Action: rawImage
+    * This method opens the image and sends it straight to the browser
+    */
+    public function rawImage()
+    {
+        if (isset($_GET['image'])) 
+            readfile(APP . 'images/' . $_GET['image']);   
+        exit();
     }
 
     /**
