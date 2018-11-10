@@ -13,6 +13,12 @@ require_once APP . 'libs/PHPMailer/src/Exception.php';
 
 class Process extends Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+        $this->postcards = $this->loadModel("postcards");
+    }
+
     /**
      * PAGE: process
      * This method handles what happens when you process an image
@@ -55,18 +61,21 @@ class Process extends Controller
         //$mail->Body = "attached";
         $mail->Body = $_POST['message'];
         
-        define('UPLOAD_DIR', APP . 'images/');
-        $img = $_POST['imgBase64'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        
-        $file = UPLOAD_DIR . 'snap-' . strval(time()) . '.png';
-        $success = file_put_contents($file, $data);
+        $image = $_POST['imgBase64'];
+        $timestamp = time();
+        $fileName = 'snap-'.strval($timestamp).'.png';       
+        /* uploading image to the db */
+        $success = $this->postcards->addPostcard($image, $fileName, $timestamp);
+        if (!$success) {
+            echo json_encode(array('success' => 0,
+                    'msg' => "Image File not generated"));
+            return;
+        }
         
         try {
-            $mail->AddAddress("nancy.liyang@gmail.com");//""test.yangli@yahoo.com");
-            $mail->AddAttachment($file, 'postcard.png');
+            $mail->AddAddress("zhouhao4093@gmail.com");//""test.yangli@yahoo.com");
+            echo $this->postcards->imageFolder . $fileName;
+            $mail->AddAttachment($this->postcards->imageFolder . $fileName, 'postcard.png');
             
             if ($mail->Send()) {
                 echo json_encode(array('success' => 1, 'msg' => 'Post card has been sent to your mailbox'));

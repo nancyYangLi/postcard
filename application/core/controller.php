@@ -18,7 +18,6 @@ class Controller
     function __construct()
     {
         $this->openDatabaseConnection();
-        $this->loadModel();
     }
 
     /**
@@ -42,10 +41,11 @@ class Controller
      * Loads the "model".
      * @return object model
      */
-    public function loadModel()
+    public function loadModel($model)
     {
-        require APP . 'model/model.php';
+        require APP . 'model/' . $model .'.php';
         // create new "model" (and pass the database connection)
-        $this->model = new Model($this->db);
+        $mdl = $model . '_mdl';
+        return new $mdl($this->db);
     }
 }
