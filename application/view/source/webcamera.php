@@ -20,7 +20,6 @@
  		function opencamera() {
  	 		try {
  	 	 		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-	        		//video.src = window.URL.createObjectURL(stream);
 	        		video.srcObject = stream;
 	        		video.play();
 	     		})
@@ -43,7 +42,7 @@
  		});
 
         document.getElementById("upload").addEventListener("click", function() {
- 			var imageURL = canvas.toDataURL(); /* base64 */
+ 			var imageURL = canvas.toDataURL(); /* base64 encoded */
             
             $.ajax({
                 url: '/postcard/source/upload',

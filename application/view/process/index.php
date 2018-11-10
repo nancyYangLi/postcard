@@ -7,41 +7,37 @@
             <br/>
             Fill Or Stroke:
             <select id = "fillOrStroke">
-            <option value = "fill">fill</option>
-            <option value = "stroke">stroke</option>
-            <option value = "both">both</option>
+                <option value = "fill">fill</option>
+                <option value = "stroke">stroke</option>
+                <option value = "both">both</option>
             </select>
         </form>
 	</div>
 	
 	<div class="box">
-		<form action="" method="post">
+		<form>
     		<div class="form-group">
             	<label><i class="fa fa-user" aria-hidden="true"></i> Name</label>
-            	<input type="text" name="name" class="form-control" placeholder="Enter Name">
+            	<input id = "emailName" type="text" name="name" class="form-control" placeholder="Enter Name">
             </div>
             
             <div class="form-group">
             	<label><i class="fa fa-envelope" aria-hidden="true"></i> Email</label>
-            	<input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+            	<input id = "emailTo" type="email" name="email" class="form-control" placeholder="Enter Email" required>
             </div>
             
             <div class="form-group">
             	<label><i class="fa fa-comment" aria-hidden="true"></i> Message</label>
-            	<textarea rows="3" name="message" class="form-control" placeholder="Type Your Message"></textarea>
-            </div>
-      
-            <div class="form-group">
-            	<button id="sendEmail" type="submit" class="btn btn-success btn-send">Send Your Postcard</button>
+            	<textarea id = "emailMsg" rows="3" name="message" class="form-control" placeholder="Type Your Message"></textarea>
             </div>
 		</form>
+		<div class="form-group">
+            	<button id="sendEmail" class="btn btn-success btn-send">Send Your Postcard</button>
+            </div>
 	</div>
-	
 </div>
 
 <script language="JavaScript">
-
-
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var message = "your message...";
@@ -49,7 +45,6 @@
     var request = new XMLHttpRequest();
     var dataURL;
 	
-    
     request.open('POST', 'https://localhost/postcard/process/loadImage', true);
     // Inform the server that the parameters are encoded in URL
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -65,14 +60,14 @@
     };
     request.send(encodeURI('image=current-snap.png'));
     
-    // Load user's specific image to canvas
+    // Embedding an image into a canvas
     function loadCanvas() {
-        var img = new Image();
+        var img = new Image(); //Create new img element
+        img.src = dataURL; 
         img.onload = function() {
           context.drawImage(img, 0, 0);
           drawScreen();
         };
-        img.src = dataURL;
     }
 
 	// Add message to canvas
@@ -119,15 +114,25 @@
         loadCanvas();
     }
 
-    // Upload image to server and go to email send page
+    // Send an email containing the modified image as an attachment
 	document.getElementById("sendEmail").addEventListener("click", function(e) {
- 		var canvas = document.getElementById('canvas');
+ 		var canvas = document.getElementById("canvas");
         var imageURL = canvas.toDataURL(); /* base64 */
+        var name = document.getElementById("emailName").value;
+        var to = document.getElementById("emailTo").value;
+        var msg = document.getElementById("emailMsg").value;
+
+        var data = {
+    		imgBase64: imageURL, 
+    		emailName: name,
+    		emailTo: to,
+    		emailMsg: msg
+        };
 
         $.ajax({
             url: '/postcard/process/sendemail',
             type: 'POST',
-            data: { imgBase64: imageURL, message: 'test teate test' },
+            data: data,
             async: false,
             success: function( response ) {
             	if (response) {

@@ -57,36 +57,36 @@ class Process extends Controller
         $mail->Username = "test.yangli@yahoo.com";
         $mail->Password = "testingbox";
         $mail->SetFrom("test.yangli@yahoo.com");
-        $mail->Subject = "Postcard";
-        //$mail->Body = "attached";
-        $mail->Body = $_POST['message'];
+        $mail->Subject = $_POST['emailName'];
+        $mail->Body = $_POST['emailMsg'];
         
+        $address = $_POST['emailTo'];
         $image = $_POST['imgBase64'];
         $timestamp = time();
-        $fileName = 'snap-'.strval($timestamp).'.png';       
+        $fileName = 'snap-'.strval($timestamp).'.png';
+        
         /* uploading image to the db */
         $success = $this->postcards->addPostcard($image, $fileName, $timestamp);
         if (!$success) {
             echo json_encode(array('success' => 0,
-                    'msg' => "Image File not generated"));
+                    'msg' => "Failed to generate image file!"));
             return;
         }
         
         try {
-            $mail->AddAddress("zhouhao4093@gmail.com");//""test.yangli@yahoo.com");
-            echo $this->postcards->imageFolder . $fileName;
+            $mail->AddAddress($address);
             $mail->AddAttachment($this->postcards->imageFolder . $fileName, 'postcard.png');
             
             if ($mail->Send()) {
-                echo json_encode(array('success' => 1, 'msg' => 'Post card has been sent to your mailbox'));
+                echo json_encode(array('success' => 1, 'msg' => 'Postcard has been sent to the mailbox'));
             }
             else {
                 echo json_encode(array('success' => 0,
-                    'msg' => "Mail not sent"));
+                    'msg' => "Sending postcard failed"));
             }
         } catch (Exception $exc) {
             echo json_encode(array('success' => 0,
-                'msg' => "Mail not sent: ". $exc->getMessage()));
+                'msg' => "Sending postcard failed: ". $exc->getMessage()));
         }
         
     }
