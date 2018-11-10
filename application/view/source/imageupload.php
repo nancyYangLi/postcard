@@ -13,7 +13,7 @@
 	
 	<!-- Configure a few settings -->
 	<script language="JavaScript">
-	// Load the uploaded image to canvas
+	// Preview the image
 	var uploadfiles = document.querySelector('#fileinput');
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
@@ -22,6 +22,7 @@
 	uploadfiles.addEventListener('change', handleImage, false);
 
 	function handleImage(e){
+		// Using FileReader to display the image content
 	    var reader = new FileReader();
 	    reader.onload = function(event){
 	        var img = new Image();

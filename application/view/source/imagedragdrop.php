@@ -25,10 +25,9 @@
 	    // call context.drawImage when the image got loaded
 	    img.onload = function() {
 			context.drawImage(img, 0, 0, canvas.width, canvas.height);
-			uploadbtn.style.display = "block";
 		}
-	 	// URL @ Mozilla, webkitURL @ Chrome
 	   	img.src = URL.createObjectURL(file);
+	   	uploadbtn.style.display = "block";
 	}
 
 	// Upload the image to server
