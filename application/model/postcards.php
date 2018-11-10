@@ -20,7 +20,7 @@ class Postcards_mdl
      */
     public function getAllPostcards()
     {
-        $sql = "SELECT id, artist, track, link FROM song";
+        $sql = "SELECT id, name, created FROM postcards";
         $query = $this->db->prepare($sql);
         $query->execute();
 
@@ -108,7 +108,9 @@ class Postcards_mdl
         $sql = "SELECT COUNT(id) AS amount_of_postcards FROM postcards";
         $query = $this->db->prepare($sql);
         $query->execute();
+    
+        $result = $query->fetch();
 
-        return $query->fetch()->amount_of_postcards;
+        return $result["amount_of_postcards"];
     }
 }
