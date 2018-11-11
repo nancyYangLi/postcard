@@ -1,7 +1,7 @@
 <div class="container">
 
     <div id="div_postcards" class="postcards">
-        -- images will be loaded here in js
+       
     </div>
 
     <script language="JavaScript">
@@ -12,10 +12,12 @@
                 infinite: true,
                 speed: 300,
                 slidesToShow: 1,
-                centerMode: true,
+                //centerMode: true,
                 variableWidth: true,
                 autoplay: true,
-                autoplaySpeed: 2000,
+                autoplaySpeed: 1500,
+                prevArrow: false,
+                nextArrow: false
             });
         });
 
@@ -24,14 +26,22 @@
             var names = document.getElementById("card_names").value;
             var images;
 
-            div.innerHTML = ""; // clear images
-            images = names.split(',');            
-            for (i=0; i<images.length; i++) {
-                var imagem=document.createElement("img");
-                imagem.src = 'https://localhost/postcard/postcards/rawImage?image=' + images[i];
-                //imagem.width = 336;
-                //imagem.height = 240;
-                div.appendChild(imagem);
+            if (names != '') {
+            	div.innerHTML = ""; // clear images
+                images = names.split(',');            
+                for (i=0; i<images.length; i++) {
+                    var innerDiv = document.createElement("div");
+                    var imagem=document.createElement("img");
+
+                    imagem.src = 'https://localhost/postcard/postcards/rawImage?image=' + images[i];
+                    innerDiv.appendChild(imagem);
+                    div.appendChild(innerDiv);
+                }
+            }
+            else {
+            	var newContent = document.createTextNode("There is no postcard!");
+            	div.parentNode.appendChild(newContent);
+            	div.parentNode.removeChild(div);
             }
         }
     </script>

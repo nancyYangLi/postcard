@@ -83,13 +83,12 @@ body {
     color: #fff;
 }
 
-#gallery .thumbnail{
-    width:500px;
-    height: 500px;
+.container .postcards {
+	width: 672px;
 }
-#gallery .thumbnail img{
-    width:500px;
-    height: 500px;
+.container .form-group.required .control-label:after {
+  content:"*";
+  color:red;
 }
 .footer {
     padding: 20px;

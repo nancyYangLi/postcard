@@ -54,6 +54,7 @@ class Process extends Controller
         $mail->Host = "smtp.mail.yahoo.com";
         $mail->Port = 465;
         $mail->IsHTML(true);
+        $mail->AllowEmpty = true;
         $mail->Username = "test.yangli@yahoo.com";
         $mail->Password = "testingbox";
         $mail->SetFrom("test.yangli@yahoo.com");

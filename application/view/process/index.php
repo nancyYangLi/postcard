@@ -33,7 +33,7 @@
 		</form>
 		<div class="form-group">
             	<button id="sendEmail" class="btn btn-success btn-send">Send Your Postcard</button>
-            </div>
+        </div>
 	</div>
 </div>
 
@@ -122,34 +122,39 @@
         var to = document.getElementById("emailTo").value;
         var msg = document.getElementById("emailMsg").value;
 
-        var data = {
-    		imgBase64: imageURL, 
-    		emailName: name,
-    		emailTo: to,
-    		emailMsg: msg
-        };
+        if ($('#emailTo')[0].checkValidity()) {
+        	var data = {
+            		imgBase64: imageURL, 
+            		emailName: name,
+            		emailTo: to,
+            		emailMsg: msg
+                };
 
-        $.ajax({
-            url: '/postcard/process/sendemail',
-            type: 'POST',
-            data: data,
-            success: function( response ) {
-            	if (response) {
-                    var res = JSON.parse(response);
-                    var msg;
-                    if (res.success) {
-                        msg = "Post card has been sent to your mailbox"
+                $.ajax({
+                    url: '/postcard/process/sendemail',
+                    type: 'POST',
+                    data: data,
+                    success: function( response ) {
+                    	if (response) {
+                            var res = JSON.parse(response);
+                            var msg;
+                            if (res.success) {
+                                msg = "Post card has been sent to your mailbox"
+                            }
+                            else {
+                                msg = res.msg;
+                            }
+                            window.alert(msg);
+                        }
+                        else {
+                            window.alert('Failed to upload image');
+                        }  
                     }
-                    else {
-                        msg = res.msg;
-                    }
-                    window.alert(msg);
-                }
-                else {
-                    window.alert('Failed to upload image');
-                }  
-            }
-        });     	
+                });     	
+        }
+        else {
+        	window.alert('Enter the email address!');
+        }
     });
 </script>
 
