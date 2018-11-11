@@ -133,7 +133,6 @@
             url: '/postcard/process/sendemail',
             type: 'POST',
             data: data,
-            async: false,
             success: function( response ) {
             	if (response) {
                     var res = JSON.parse(response);

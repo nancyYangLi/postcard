@@ -66,8 +66,8 @@ class Process extends Controller
         $fileName = 'snap-'.strval($timestamp).'.png';
         
         /* uploading image to the db */
-        $success = $this->postcards->addPostcard($image, $fileName, $timestamp);
-        if (!$success) {
+        $id = $this->postcards->addPostcard($image, $fileName, $timestamp);
+        if (!$id) {
             echo json_encode(array('success' => 0,
                     'msg' => "Failed to generate image file!"));
             return;
@@ -80,11 +80,15 @@ class Process extends Controller
             if ($mail->Send()) {
                 echo json_encode(array('success' => 1, 'msg' => 'Postcard has been sent to the mailbox'));
             }
-            else {
+            else {            
+                 // delete cards that are not sent by email
+                $this->postcards->deletePostcard($id);
                 echo json_encode(array('success' => 0,
                     'msg' => "Sending postcard failed"));
             }
         } catch (Exception $exc) {
+            // delete cards that are not sent by email
+            $this->postcards->deletePostcard($id);
             echo json_encode(array('success' => 0,
                 'msg' => "Sending postcard failed: ". $exc->getMessage()));
         }

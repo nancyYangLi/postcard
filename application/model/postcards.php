@@ -46,10 +46,9 @@ class Postcards_mdl
         $data = base64_decode($image);
         $file = $this->imageFolder . $name;
         $success = file_put_contents($file, $data);
-
         if (!$success)
             return False;
-
+        
         $sql = "INSERT INTO postcards (name, created) VALUES (:name, :created)";
         $query = $this->db->prepare($sql);
         $parameters = array(':name' => $name, ':created' => $created);
@@ -64,7 +63,7 @@ class Postcards_mdl
             return False;
         }
         
-        return True;
+        return $this->db->lastInsertId();
     }
 
     /**
@@ -73,19 +72,35 @@ class Postcards_mdl
      */
     public function deletePostcard($id)
     {
+        $record = $this->getPostcard($id);
+        if (empty($record)) //not card found, return true as if it's been deleted
+            return true;
+        $file = $this->imageFolder . $record["name"];
+        /*
+         * Should succeed. Even not, delete record from db anyway.
+         * Routing images folder checking is needed 
+         */
+        unlink($file); 
+
         $sql = "DELETE FROM postcards WHERE id = :id";
         $query = $this->db->prepare($sql);
         $parameters = array(':id' => $id);
 
         $query->execute($parameters);
+        
+        if ($query->rowCount() == 0)
+            return false;
+        else
+            return true;   
     }
 
     /**
      * Get a postcard from database
+     * Return record (array) if found otherwise empty (check with empty())
      */
     public function getPostcard($id)
     {
-        $sql = "SELECT id, image, name, created FROM postcards WHERE id = :id LIMIT 1";
+        $sql = "SELECT id, name, created FROM postcards WHERE id = :id LIMIT 1";
         $query = $this->db->prepare($sql);
         $parameters = array(':id' => $id);
 
