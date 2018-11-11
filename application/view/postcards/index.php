@@ -26,7 +26,7 @@
 
             div.innerHTML = ""; // clear images
             images = names.split(',');            
-            for (i=1; i<=images.length; i++) {
+            for (i=0; i<images.length; i++) {
                 var imagem=document.createElement("img");
                 imagem.src = 'https://localhost/postcard/postcards/rawImage?image=' + images[i];
                 //imagem.width = 336;
