@@ -36,6 +36,7 @@
         </div>
 	</div>
 </div>
+<div id="loader" style="display:none;" ></div>
 
 <script language="JavaScript">
     var canvas = document.getElementById('canvas');
@@ -116,6 +117,7 @@
 
     // Send an email containing the modified image as an attachment
 	document.getElementById("sendEmail").addEventListener("click", function(e) {
+		var loader = document.getElementById("loader");
  		var canvas = document.getElementById("canvas");
         var imageURL = canvas.toDataURL(); /* base64 */
         var name = document.getElementById("emailName").value;
@@ -134,7 +136,11 @@
                     url: '/postcard/process/sendemail',
                     type: 'POST',
                     data: data,
+                    beforeSend: function(){
+                    	loader.style.display = "block";
+                    },
                     success: function( response ) {
+                    	loader.style.display = "none";
                     	if (response) {
                             var res = JSON.parse(response);
                             var msg;
