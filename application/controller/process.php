@@ -70,7 +70,7 @@ class Process extends Controller
         $id = $this->postcards->addPostcard($image, $fileName, $timestamp);
         if (!$id) {
             echo json_encode(array('success' => 0,
-                    'msg' => "Failed to generate image file!"));
+                    'msg' => "Failed to generate postcard!"));
             return;
         }
         
