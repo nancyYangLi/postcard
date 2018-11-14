@@ -11,7 +11,7 @@ The "Postcard Creator" is a simple-to-use and cross browser friendly PHP MVC web
 
 To successfully run the demo, complete the following steps:
 
-  * Unzip the files from postcard.zip (See Folder Structure)
+  * Unzip the files from postcard.zip (See [Folder Structure](#Folder-Structure))
   * Place the top directory postcard and its content in the DOCUMENT_ROOT of Apache server
   * Make sure the user whom the Apache is running as has the Read & Write previlidges on 
      postcard/application/images, postcard/db and postcard/db/postcard.db
@@ -28,8 +28,8 @@ To successfully run the demo, complete the following steps:
 
   * `SSL Error “Your Connection is Not Secure” `
     It happens when the Secure Website Certificate on a https site cannot be validated on the web browser. 
-     **Chrome**: To allow insecure localhost, copy `chrome://flags/#allow-insecure-localhost` to the address bar, and enable the first item "Allow invalid certificates for resources loaded from localhost".
-     **Firefox**: On the warning page, click Advanced; Click Add Exception…; On the Add Security Exception dialog confirm adding exception.
+     * **Chrome**: To allow insecure localhost, copy `chrome://flags/#allow-insecure-localhost` to the address bar, and enable the first item "Allow invalid certificates for resources loaded from localhost".
+     * **Firefox**: On the warning page, click Advanced; Click Add Exception…; On the Add Security Exception dialog confirm adding exception.
   * `Pop-up box “Failed to generate postcard” `
      When sending a postcard by email, user might get this warning. Please make sure the last step in [Setup](#Setup) section has been carried out.
      
