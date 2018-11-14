@@ -13,14 +13,14 @@ To successfully run the demo, complete the following steps:
 
   * Unzip the files from postcard.zip (See Folder Structure)
   * Place the top directory postcard and its content in the `DOCUMENT_ROOT` of Apache server
-  * Make sure the user whom the Apache is running as has the `Read & Write` previlidges on 
+  * Make sure the user whom the Apache is running as has the `Read & Write` privileges on 
      postcard/application/images, postcard/db and postcard/db/postcard.db
 
 ### Usage
 
   * After setting up, user can access to the application via [https://DEPLOY-SITE/postcard]. In the XAMPP environment in which this web application is developed, the URL is [https://localhost/postcard]. Please note that it has to be `https` for the user to access the camera in the application.
   * User can choose a way to get the image in order to make a postcard: capturing an image via web camera, uploading an image file or drag & drop an image file.
-  * After the user decides to use a certain image to make a postcard, he/she will be brougt to the process page where the user can modify the image to contain a message and customize the style of the message
+  * After the user decides to use a certain image to make a postcard, he/she will be brought to the process page where the user can modify the image to contain a message and customize the style of the message
   * User can send the postcard as an attachment to the recipient with optional name and message.
   * A history of previously sent postcards can be shown in carousel. User can access to the history via Postcards in the navigation bar.
 
@@ -34,7 +34,7 @@ To successfully run the demo, complete the following steps:
      When sending a postcard by email, user might get this warning. Please make sure the last step in [Setup](#Setup) section has been carried out.
      
 ### Unit Tests
-* Display all postcards and check existance of image files
+* Display all postcards and check existence of image files
 ```
 Url: https://localhost/postcard/unitTest/list     
 ```
@@ -128,7 +128,7 @@ public function delete()
 ```
 ### Design decisions
 This web application has two sections. The first section is to enable the user to create their own postcards.
-It includes Home page, the webcamera page, fileupload page, imagedragdrop page and the process page. The second section is used to display previously ceated postcards. It has postcards page.
+It includes Home page, the webcamera page, fileupload page, imagedragdrop page and the process page. The second section is used to display previously created postcards. It has postcards page.
 
 The `Home` page provides three options as the image source to create post card, namely Web Camera, Upload File and Drag and Drop Image. It will redirect to a certain page based on the form selection. 
 
@@ -146,15 +146,15 @@ This application is developed in a MVC framework "panique/mini". The controllers
   * Model: Postcards
      In Postcards, Create, Read and Delete actions are implemented. Once a postcard is created it won't be changed, thus Update action is not implemented.
 
-  * Controler: Home, Source, Process and Postcards
+  * Controller: Home, Source, Process and Postcards
      `Home`: the home page
      `Source`: three actions are implemented: webcamera, upload and drag & drop
-     `Process`: index action is for the text editing on image; sendEmail is an ajax action for email sending; loadImage is an ajax action to get an image file in a MVC architecture;
-     `Problem`: the error page when no controler/action is found by router.
+     `Process`: index action is for the text editing on image; sendEmail is an Ajax action for email sending; loadImage is an Ajax action to get an image file in a MVC architecture;
+     `Problem`: the error page when no controller/action is found by router.
      `unitTest`: to test the model "Postcards"
   `View`: Each action, except Ajax action, has a view page.
 
-### Folder Structrue
+### Folder Structure
 ```bash
 postcard
 |____application
