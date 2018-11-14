@@ -33,7 +33,7 @@
                     var innerDiv = document.createElement("div");
                     var imagem=document.createElement("img");
 
-                    imagem.src = 'https://localhost/postcard/postcards/rawImage?image=' + images[i];
+                    imagem.src = document.location.origin + '/postcard/postcards/rawImage?image=' + images[i];
                     innerDiv.appendChild(imagem);
                     div.appendChild(innerDiv);
                 }

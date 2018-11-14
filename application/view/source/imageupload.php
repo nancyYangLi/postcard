@@ -45,7 +45,7 @@
             data: { imgBase64: imageURL },
             success: function( response ) {
                 if (response) 
-                    window.location="https://localhost/postcard/process";
+                    window.location="/postcard/process";
                 else {
                 	window.alert('Failed to upload image to edit');
                 }

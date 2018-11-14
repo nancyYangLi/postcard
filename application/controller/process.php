@@ -51,13 +51,13 @@ class Process extends Controller
         $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "smtp.mail.yahoo.com";
+        $mail->Host = "webhosting2012.is.cc"; //"smtp.mail.yahoo.com";
         $mail->Port = 465;
         $mail->IsHTML(true);
         $mail->AllowEmpty = true;
-        $mail->Username = "test.yangli@yahoo.com";
-        $mail->Password = "testingbox";
-        $mail->SetFrom("test.yangli@yahoo.com");
+        $mail->Username = "demo@yanglidemo.com"; //"test.yangli@yahoo.com";
+        $mail->Password = "yanglidemo"; //"testingbox";
+        $mail->SetFrom("demo@yanglidemo.com"); //"test.yangli@yahoo.com");
         $mail->Subject = $_POST['emailName'];
         $mail->Body = $_POST['emailMsg'];
         
@@ -91,7 +91,7 @@ class Process extends Controller
             // delete cards that are not sent by email
             $this->postcards->deletePostcard($id);
             echo json_encode(array('success' => 0,
-                'msg' => "Sending postcard failed: ". $exc->getMessage()));
+                'msg' => "Saving postcard failed: ". $exc->getMessage()));
         }
         
     }

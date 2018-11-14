@@ -46,7 +46,7 @@
     var request = new XMLHttpRequest();
     var dataURL;
 	
-    request.open('POST', 'https://localhost/postcard/process/loadImage', true);
+    request.open('POST', document.location.origin + '/postcard/process/loadImage', true);
     // Inform the server that the parameters are encoded in URL
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.onreadystatechange = function() {

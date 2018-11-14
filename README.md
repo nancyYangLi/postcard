@@ -36,11 +36,11 @@ To successfully run the demo, complete the following steps:
 ### Unit Tests
 * Display all postcards and check existence of image files
 ```
-Url: https://localhost/postcard/unitTest/list     
+Url: https://localhost/postcard/unitTest/listAll     
 ```
 
 ```
-public function list()
+public function listAll()
     {
         $cards = $this->postcards->getAllPostcards();
         foreach ($cards as $c) {

@@ -13,10 +13,10 @@ class UnitTest extends Controller
     }
 
     /**
-     * list: show all records in database and check existence of image files 
-     * Url: https://localhost/postcard/unitTest/list     
+     * listAll: show all records in database and check existence of image files 
+     * Url: https://localhost/postcard/unitTest/listAll     
      */
-    public function list()
+    public function listAll()
     {
         $cards = $this->postcards->getAllPostcards();
         foreach ($cards as $c) {
