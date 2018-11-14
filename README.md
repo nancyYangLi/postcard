@@ -11,14 +11,14 @@ The "Postcard Creator" is a simple-to-use and cross browser friendly PHP MVC web
 
 To successfully run the demo, complete the following steps:
 
-  * Unzip the files from postcard.zip (See [Folder Structure](#folder-structure))
+  * Unzip the files from postcard.zip See [Folder Structure](#folder-structure)
   * Place the top directory postcard and its content in the `DOCUMENT_ROOT` of Apache server
   * Make sure the user whom the Apache is running as has the `Read & Write` previlidges on 
      postcard/application/images, postcard/db and postcard/db/postcard.db
 
 ### Usage
 
-  * After setting up, user can access to the application via [https://DEPLOY-SITE/postcard]. In the XAMPP environment in which this web application is developed, the URL is [https://localhost/postcard]. Please note that it has to be https for the user to access the camera in the application.
+  * After setting up, user can access to the application via [https://DEPLOY-SITE/postcard]. In the XAMPP environment in which this web application is developed, the URL is [https://localhost/postcard]. Please note that it has to be `https` for the user to access the camera in the application.
   * User can choose a way to get the image in order to make a postcard: capturing an image via web camera, uploading an image file or drag & drop an image file.
   * After the user decides to use a certain image to make a postcard, he/she will be brougt to the process page where the user can modify the image to contain a message and customize the style of the message
   * User can send the postcard as an attachment to the recipient with optional name and message.
