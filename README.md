@@ -11,7 +11,7 @@ The "Postcard Creator" is a simple-to-use and cross browser friendly PHP MVC web
 
 To successfully run the demo, complete the following steps:
 
-  * Unzip the files from postcard.zip See [Folder Structure](#folder-structure)
+  * Unzip the files from postcard.zip (See Folder Structure)
   * Place the top directory postcard and its content in the `DOCUMENT_ROOT` of Apache server
   * Make sure the user whom the Apache is running as has the `Read & Write` previlidges on 
      postcard/application/images, postcard/db and postcard/db/postcard.db
