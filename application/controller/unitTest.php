@@ -13,7 +13,7 @@ class UnitTest extends Controller
     }
 
     /**
-     * list: show all records in database and check existance of image files 
+     * list: show all records in database and check existence of image files 
      * Url: https://localhost/postcard/unitTest/list     
      */
     public function list()
