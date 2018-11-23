@@ -4,7 +4,7 @@ The "Postcard Creator" is a simple-to-use and cross browser friendly PHP MVC web
  
 ### Service Pack
 
-* [Apache]- a free and open-source cross-platform web server solution stack package 
+* [XAMPP]- a free and open-source cross-platform web server solution stack package 
 * [SQLite] - a relational database management system contained in a C programming library
 
 ### Setup
